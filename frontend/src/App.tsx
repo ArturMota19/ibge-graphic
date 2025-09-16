@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 // Pages
 // unauth Pages
 const Home = lazy(() => import("./pages/Home/page"));
+const PibEvolution = lazy(() => import("./pages/PibEvolution/page"))
 
 
 function App() {
@@ -16,8 +17,8 @@ function App() {
       <ToastContainer />
       <Suspense fallback={<div className="loadingDiv">teste</div>}>
         <Routes>
-          {/* Auth Routes */}
           <Route path="/" element={<Home/>} />
+          <Route path="/pib-evolution" element={<PibEvolution/>} />
         </Routes>
       </Suspense>
     </BrowserRouter>
