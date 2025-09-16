@@ -1,9 +1,10 @@
 //Imports
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Suspense, lazy } from "react";
 // Styles
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "./components/basics/Loading/Loading";
 // Components
 // Pages
 // unauth Pages
@@ -15,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <ToastContainer />
-      <Suspense fallback={<div className="loadingDiv">teste</div>}>
+      <Suspense fallback={<div className="loadingDiv"><Loading/></div>}>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/pib-evolution" element={<PibEvolution/>} />

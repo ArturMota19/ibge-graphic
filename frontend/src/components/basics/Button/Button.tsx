@@ -1,4 +1,5 @@
 // Imports
+import Spinner from "../SpinnerLoading/SpinnerLoading";
 import s from "./Button.module.css";
 
 //Styles
@@ -74,7 +75,7 @@ export default function Button({
             disabled={isLoading ? true : disabled}
             className={s.basicButton}
             onClick={doFunction ? () => doFunction() : undefined}>
-            <p>{isLoading ? <p>Loading</p> : text}</p>
+            <p>{isLoading ? <Spinner size={35} color="#1F4547"/> : text}</p>
         </button>
     );
 }

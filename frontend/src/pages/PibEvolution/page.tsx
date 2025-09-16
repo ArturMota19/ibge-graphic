@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 // Styles
 import s from "./page.module.css";
 import { BaseRequest } from "../../services/BaseRequest";
+import Spinner from "../../components/basics/SpinnerLoading/SpinnerLoading";
 
 export default function PibEvolution() {
   const [isLoading, setIsLoading] = useState(false)
