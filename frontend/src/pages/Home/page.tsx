@@ -2,7 +2,7 @@
 
 // Images
 import logo from "../../assets/logo_menu.png";
-import Button from "../../components/basics/Button/button";
+import Button from "../../components/basics/Button/Button";
 // Imports
 
 // Styles
