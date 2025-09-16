@@ -1,0 +1,20 @@
+.basicButton{
+  width: 100%;
+  color: #fff;
+  padding: 0.75em 2em;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(79, 140, 255, 0.15);
+  transition: transform 0.5s;
+
+  &:hover {
+    transform: translateY(-1px) scale(1.01);
+  }
+}
