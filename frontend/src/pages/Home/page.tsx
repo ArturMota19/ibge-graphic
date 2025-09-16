@@ -18,8 +18,8 @@ export default function Home() {
                   <h2>Teste Técnico</h2>
                 </div>
                 <div className={s.wrapperCitation}>
-                  <h4>“Dados brutos são mais valiosos do que algoritmos sofisticados quando se busca resolver problemas reais.”</h4>
-                  <p>- Referência Peter Norvig & Alon Halevy (The Unreasonable Effectiveness of Data).</p>
+                  <h4>“The goal is to turn data into information, and information into insight.”</h4>
+                  <p>- Carly Fiorina</p>
                 </div>
                 <div className={s.wrapperButtons}>
                     <Button
@@ -28,6 +28,7 @@ export default function Home() {
                         backgroundColor="#1F4547"
                         color="#FFF"
                         isLink={true}
+                        url="/pib-evolution"
                     />
                     <Button
                         type="submit"
@@ -35,6 +36,7 @@ export default function Home() {
                         backgroundColor="#F58561"
                         color="#FFF"
                         isLink={true}
+                        url="/yearly-pib"
                     />
                 </div>
             </section>
