@@ -1,18 +1,29 @@
 // Components
 
 // Images
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // Imports
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Legend } from "recharts";
+import {
+    LineChart,
+    Line,
+    CartesianGrid,
+    XAxis,
+    YAxis,
+    Legend,
+    ResponsiveContainer,
+} from "recharts";
 import { MultiSelect } from "primereact/multiselect";
 // Styles
 import s from "./page.module.css";
 import { BaseRequest } from "../../services/BaseRequest";
 import Button from "../../components/basics/Button/Button";
+import Spinner from "../../components/basics/SpinnerLoading/SpinnerLoading";
 
 export default function PibEvolution() {
     const [isLoading, setIsLoading] = useState(false);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<
+        { name: string; pibTotal: number; pibPerCapita: number }[]
+    >([]);
     const [selectedYears, setSelectedYears] = useState([]);
     const years = [
         { label: "Ano 1996", value: "1996" },
@@ -43,31 +54,80 @@ export default function PibEvolution() {
         { label: "Ano 2021", value: "2021" },
         { label: "Ano 2022", value: "2022" },
     ];
-    // const data = [{ name: "Page A", uv: 400, pv: 2400, amt: 2400 }];
 
-    useEffect(() => {
-        async function FetchIBGE() {
-            // query builder: https://servicodados.ibge.gov.br/api/docs/agregados?versao=3#api-bq
-            const response = await BaseRequest({
-                method: "GET",
-                url: "https://servicodados.ibge.gov.br/api/v3/agregados/6784/periodos/1996|1997|1998|1999|2000|2001|2002|2003|2004|2005|2006|2007|2008|2009|2010|2011|2012|2013|2014|2015|2016|2017|2018|2019|2020|2021|2022/variaveis/9808|9812?localidades=N1[all]",
-                setIsLoading,
-            });
-            console.log(response);
-        }
-        FetchIBGE();
-    }, []);
+    async function FetchIBGE() {
+        const yearsString = selectedYears.join("|");
+        const response = await BaseRequest({
+            method: "GET",
+            url: `https://servicodados.ibge.gov.br/api/v3/agregados/6784/periodos/${yearsString}/variaveis/9808|9812?localidades=N1[all]`,
+            setIsLoading,
+        });
+        const pibTotal = response.data.find((d) => d.id === "9808")
+            .resultados[0].series[0].serie;
+        const pibPerCapita = response.data.find((d) => d.id === "9812")
+            .resultados[0].series[0].serie;
+        console.log(pibTotal);
+        console.log(pibPerCapita);
+
+        setData(
+            Object.keys(pibTotal).map((year) => ({
+                name: year,
+                pibTotal: Number(pibTotal[year] / 1000),
+                pibPerCapita: Number(pibPerCapita[year]),
+            }))
+        );
+    }
 
     const MyChart = () => {
-        if (data.length == 0) return null;
+        if (data.length === 0) return null;
+
         return (
-            <LineChart width={600} height={300} data={data}>
-                <CartesianGrid />
-                <Line dataKey="uv" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Legend />
-            </LineChart>
+            <ResponsiveContainer width="100%" height={400}>
+                <LineChart width={1000} height={500} data={data}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis
+                        yAxisId="left"
+                        orientation="left"
+                        tickFormatter={(value) =>
+                            `${value.toLocaleString("pt-BR")} Bi`
+                        }
+                        label={{
+                            value: "PIB Total (R$ bilhões)",
+                            angle: -90,
+                            position: "insideLeft",
+                        }}
+                    />
+                    <YAxis
+                        yAxisId="right"
+                        orientation="right"
+                        tickFormatter={(value) =>
+                            `R$ ${value.toLocaleString("pt-BR")}`
+                        }
+                        label={{
+                            value: "PIB per capita (R$)",
+                            angle: 90,
+                            position: "insideRight",
+                        }}
+                    />
+
+                    <Legend />
+                    <Line
+                        type="monotone"
+                        dataKey="pibTotal"
+                        stroke="#2563eb"
+                        name="PIB Total (R$ bilhões)"
+                        yAxisId="left"
+                    />
+                    <Line
+                        type="monotone"
+                        dataKey="pibPerCapita"
+                        stroke="#16a34a"
+                        name="PIB per capita (R$)"
+                        yAxisId="right"
+                    />
+                </LineChart>
+            </ResponsiveContainer>
         );
     };
 
@@ -89,13 +149,16 @@ export default function PibEvolution() {
                             className={`customMultiSelect`}
                         />
                         <Button
+                            type="button"
                             text="Gerar gráfico"
                             backgroundColor="#1BB17A"
                             color="#FFF"
+                            doFunction={FetchIBGE}
+                            isLoading={isLoading}
                         />
                     </form>
                 </div>
-                <MyChart />
+                {isLoading ? <Spinner size={50} color="#1BB17A" /> : <MyChart/>}
             </section>
         </main>
     );
