@@ -21,6 +21,7 @@ import Spinner from "../../components/basics/SpinnerLoading/SpinnerLoading";
 
 export default function PibEvolution() {
     const [isLoading, setIsLoading] = useState(false);
+    const exchangeRate = 5.40;
     const [data, setData] = useState<
         { name: string; pibTotal: number; pibPerCapita: number }[]
     >([]);
@@ -72,8 +73,8 @@ export default function PibEvolution() {
         setData(
             Object.keys(pibTotal).map((year) => ({
                 name: year,
-                pibTotal: Number(pibTotal[year] / 1000),
-                pibPerCapita: Number(pibPerCapita[year]),
+                pibTotal: Number(pibTotal[year] / 1000 / exchangeRate),
+                pibPerCapita: Number(pibPerCapita[year] / exchangeRate),
             }))
         );
     }
@@ -90,10 +91,10 @@ export default function PibEvolution() {
                         yAxisId="left"
                         orientation="left"
                         tickFormatter={(value) =>
-                            `${value.toLocaleString("pt-BR")} Bi`
+                            `${value.toLocaleString("en-US")} Bi`
                         }
                         label={{
-                            value: "PIB Total (R$ bilhões)",
+                            value: "PIB Total ($)",
                             angle: -90,
                             position: "insideLeft",
                         }}
@@ -102,10 +103,10 @@ export default function PibEvolution() {
                         yAxisId="right"
                         orientation="right"
                         tickFormatter={(value) =>
-                            `R$ ${value.toLocaleString("pt-BR")}`
+                            `$ ${value.toLocaleString("en-US")}`
                         }
                         label={{
-                            value: "PIB per capita (R$)",
+                            value: "PIB per capita ($)",
                             angle: 90,
                             position: "insideRight",
                         }}
@@ -116,14 +117,14 @@ export default function PibEvolution() {
                         type="monotone"
                         dataKey="pibTotal"
                         stroke="#2563eb"
-                        name="PIB Total (R$ bilhões)"
+                        name="PIB Total em bilhões de dólares ($ bilhões)"
                         yAxisId="left"
                     />
                     <Line
                         type="monotone"
                         dataKey="pibPerCapita"
                         stroke="#16a34a"
-                        name="PIB per capita (R$)"
+                        name="PIB per capita em dólares ($)"
                         yAxisId="right"
                     />
                 </LineChart>
