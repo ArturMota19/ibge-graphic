@@ -35,7 +35,7 @@ export default function Loading() {
         const nextIndex = (currentIndex + 1) % messages.length;
         return messages[nextIndex];
       });
-    }, 800); // Change message every 800ms
+    }, 800);
 
     return () => clearInterval(interval);
   }, [messages]);
