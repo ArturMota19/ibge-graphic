@@ -6,7 +6,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
 }
@@ -18,12 +19,19 @@ body {
   color: #222;
 }
 
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
 }
 
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
 }
 
@@ -32,6 +40,141 @@ a {
   color: inherit;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
+}
+
+/* Multiselect dropdown css */
+/*https://primereact.org/multiselect -> passthrough*/
+
+.customMultiSelect {
+  border: 2px solid #1BB17A;
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.customMultiSelect:hover {
+  border-color: #1F4547;
+  background-color: #fff;
+}
+
+.customMultiSelect:focus-within {
+  border-color: #1F4547;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.customMultiSelect .p-multiselect-token {
+  background: #1F4547;
+  color: #fff;
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.customMultiSelect .p-multiselect-trigger {
+  color: #1F4547;
+  border-left: 1px solid #1F4547;
+  padding-left: 8px;
+}
+
+.p-multiselect-panel {
+  border-radius: 12px;
+  border: 1px solid #979797;
+  background-color: #fff;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 6px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.p-multiselect-filter-container {
+  padding: 6px;
+  margin-bottom: 4px;
+}
+
+.p-multiselect-filter {
+  border-radius: 8px;
+  border: 1px solid #979797;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.p-multiselect-filter:focus {
+  border-color: #1F4547;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.p-multiselect-item {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: background 0.2s, transform 0.1s;
+  cursor: pointer;
+}
+
+.p-multiselect-item:hover {
+  background: #979797;
+  transform: translateX(3px);
+}
+
+.p-multiselect-item {
+  .p-checkbox-input {
+    display: none;
+  }
+}
+.p-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: .5rem;
+}
+.p-checkbox-icon{
+  display: none;
+}
+.p-checkbox-input {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #979797;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+.p-checkbox-icon {
+  margin-right: 8px;
+}
+
+.p-multiselect-item.p-highlight {
+  background: #1BB17A !important;
+  color: #fff !important;
+}
+
+.p-inputtext {
+  outline: none;
+}
+
+.p-multiselect-filter-icon {
+  position: absolute;
+  right: 10px;
+  top: 17px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

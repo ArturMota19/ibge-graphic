@@ -23,6 +23,22 @@
     background-color: #FFF;
     transition: box-shadow 1s;
     box-shadow: 0 5px 8px rgba(0, 0, 0, .25);
+    .wrapperHeaderDiv{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .wrapperForm{
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      width: 25%;
+      max-width: 30%;
+    }
 
   }
 
