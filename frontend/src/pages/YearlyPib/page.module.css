@@ -1,0 +1,138 @@
+.wrapperMain {
+  width: 100%;
+  height: 100vh;
+  background-color: #F58561;
+  background-image: repeating-linear-gradient(90deg, transparent 0 40px), url('../../assets/fruit.svg');
+  background-size: 35px 35px;
+  background-blend-mode: multiply;
+  background-repeat: space;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .backDiv{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    img{
+      width: 35px;
+      cursor: pointer;
+    }
+  }
+
+  .wrapperInterLogo {
+    position: relative;
+    width: 80%;
+    min-height: 30%;
+    padding: 2rem;
+    gap: 2rem;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: #FFF;
+    transition: box-shadow 1s;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, .25);
+
+    .wrapperHeaderDiv {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .wrapperForm {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      width: 25%;
+      max-width: 30%;
+    }
+
+    .wrapperTable{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      max-height: 500px;
+      overflow: scroll;
+      position: relative;
+
+      .wrapperTableHeader{
+        position: sticky;
+        top: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: .5rem;
+        padding: .5rem;
+        border-radius: 8px 8px 0px 0px;
+        background-color: #1BB17A;
+        color: #FFF;
+
+        p{
+          width: 100%;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      .wrapperTableData{
+        display: flex;
+        flex-direction: column;
+
+        .wrapperLineTableData{
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          gap: .5rem;
+          padding: .5rem;
+          background-color: #1F4547;
+          border: 1px solid #1BB17A;
+          color: #FFF;
+
+          p{
+          width: 100%;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        }
+      }
+    }
+
+  }
+
+}
+
+@media screen and (max-width: 1150px) {
+  .wrapperMain .wrapperInterLogo {
+    width: 90%;
+    min-height: unset;
+    padding: 1rem;
+
+    h1 {
+      font-size: 1rem;
+    }
+
+
+    .wrapperHeaderDiv {
+      width: 100%;
+    }
+
+    .wrapperForm {
+      width: 100% !important;
+      max-width: unset;
+    }
+  }
+
+}

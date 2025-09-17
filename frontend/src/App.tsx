@@ -10,6 +10,7 @@ import Loading from "./components/basics/Loading/Loading";
 // unauth Pages
 const Home = lazy(() => import("./pages/Home/page"));
 const PibEvolution = lazy(() => import("./pages/PibEvolution/page"))
+const YearlyPib = lazy(() => import("./pages/YearlyPib/page"))
 
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/pib-evolution" element={<PibEvolution/>} />
+          <Route path="/yearly-pib" element={<YearlyPib/>} />
+          
         </Routes>
       </Suspense>
     </BrowserRouter>

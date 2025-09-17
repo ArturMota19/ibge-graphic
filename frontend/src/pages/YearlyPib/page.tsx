@@ -5,22 +5,12 @@ import Spinner from "../../components/basics/SpinnerLoading/SpinnerLoading";
 import backIcon from "../../assets/back_icon.svg"
 // Imports
 import { useState } from "react";
-import {
-    LineChart,
-    Line,
-    CartesianGrid,
-    XAxis,
-    YAxis,
-    Legend,
-    ResponsiveContainer,
-} from "recharts";
 import { BaseRequest } from "../../services/BaseRequest";
 import { toast } from "react-toastify";
 import { MultiSelect } from "primereact/multiselect";
 // Styles
 import s from "./page.module.css";
 import { useNavigate } from "react-router-dom";
-
 
 export default function PibEvolution() {
   const navigate = useNavigate()
@@ -80,9 +70,6 @@ export default function PibEvolution() {
             .resultados[0].series[0].serie;
         const pibPerCapita = response.data.find((d: { id: string; }) => d.id === "9812")
             .resultados[0].series[0].serie;
-        console.log(pibTotal);
-        console.log(pibPerCapita);
-
         setData(
             Object.keys(pibTotal).map((year) => ({
                 name: year,
@@ -92,58 +79,28 @@ export default function PibEvolution() {
         );
     }
 
-    const MyChart = () => {
-        if (data.length === 0) return null;
-
-        return (
-            <ResponsiveContainer width="100%" height={400}>
-                <LineChart width={1000} height={500} data={data}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis
-                        yAxisId="left"
-                        orientation="left"
-                        tickFormatter={(value) =>
-                            `${value.toLocaleString("en-US")} Bi`
-                        }
-                        label={{
-                            value: "PIB Total ($)",
-                            angle: -90,
-                            position: "insideLeft",
-                        }}
-                    />
-                    <YAxis
-                        yAxisId="right"
-                        orientation="right"
-                        tickFormatter={(value) =>
-                            `$ ${value.toLocaleString("en-US")}`
-                        }
-                        label={{
-                            value: "PIB per capita ($)",
-                            angle: 90,
-                            position: "insideRight",
-                        }}
-                    />
-
-                    <Legend />
-                    <Line
-                        type="monotone"
-                        dataKey="pibTotal"
-                        stroke="#2563eb"
-                        name="PIB Total em bilhões de dólares ($ bilhões)"
-                        yAxisId="left"
-                    />
-                    <Line
-                        type="monotone"
-                        dataKey="pibPerCapita"
-                        stroke="#16a34a"
-                        name="PIB per capita em dólares ($)"
-                        yAxisId="right"
-                    />
-                </LineChart>
-            </ResponsiveContainer>
-        );
-    };
+    const Table = ({label}:{label: string[]}) => {
+      console.log(data)
+      return(
+        <section className={s.wrapperTable}>
+          <div className={s.wrapperTableHeader}>
+            {label.map((eachLabel: string) => (
+               <p>{eachLabel}</p>
+            ))}
+          </div>
+          <div className={s.wrapperTableData}>
+            {data.map((eachYear) => (
+               <div className={s.wrapperLineTableData}>
+                <p>{eachYear.name}</p>
+                <p>$ {eachYear.pibTotal}</p>
+                <p>$ {eachYear.pibPerCapita}</p>
+               </div>
+            ))}
+          </div>
+        </section>
+      )
+    }
+ 
 
     return (
         <main className={s.wrapperMain}>
@@ -152,7 +109,7 @@ export default function PibEvolution() {
                   <img src={backIcon} alt="voltar" />
                 </div>
                 <div className={s.wrapperHeaderDiv}>
-                    <h1>Evolução do PIB</h1>
+                    <h1>PIB Anual</h1>
                     <form className={s.wrapperForm}>
                         <label htmlFor="years">
                             Selecione o(s) Ano(s) para análise
@@ -167,7 +124,7 @@ export default function PibEvolution() {
                         />
                         <Button
                             type="button"
-                            text="Gerar gráfico"
+                            text="Gerar tabela"
                             backgroundColor="#1BB17A"
                             color="#FFF"
                             doFunction={FetchIBGE}
@@ -178,7 +135,9 @@ export default function PibEvolution() {
                 {isLoading ? (
                     <Spinner size={50} color="#1BB17A" />
                 ) : (
-                    <MyChart />
+                    <Table
+                      label={["Ano de Análise", "PIB em milhões de dólares", "PIB percapita em dólares"]}
+                    />
                 )}
             </section>
         </main>
