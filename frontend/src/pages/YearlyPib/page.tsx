@@ -6,7 +6,6 @@ import backIcon from "../../assets/back_icon.svg"
 // Imports
 import { useState } from "react";
 import { BaseRequest } from "../../services/BaseRequest";
-import { toast } from "react-toastify";
 import { MultiSelect } from "primereact/multiselect";
 // Styles
 import s from "./page.module.css";
@@ -51,15 +50,6 @@ export default function PibEvolution() {
     ];
 
     async function FetchIBGE() {
-        if (selectedYears.length < 2) {
-            toast.error(
-                "Selecione ao menos dois anos para realizar a análise.",
-                {
-                    toastId: "selected-years-error",
-                }
-            );
-            return;
-        }
         const yearsString = selectedYears.join("|");
         const response = await BaseRequest({
             method: "GET",
@@ -73,14 +63,14 @@ export default function PibEvolution() {
         setData(
             Object.keys(pibTotal).map((year) => ({
                 name: year,
-                pibTotal: Number(pibTotal[year] / 1000 / exchangeRate),
+                pibTotal: Number(pibTotal[year] / exchangeRate),
                 pibPerCapita: Number(pibPerCapita[year] / exchangeRate),
             }))
         );
     }
 
     const Table = ({label}:{label: string[]}) => {
-      console.log(data)
+      if(data.length == 0) return null
       return(
         <section className={s.wrapperTable}>
           <div className={s.wrapperTableHeader}>
@@ -92,8 +82,8 @@ export default function PibEvolution() {
             {data.map((eachYear) => (
                <div className={s.wrapperLineTableData}>
                 <p>{eachYear.name}</p>
-                <p>$ {eachYear.pibTotal}</p>
-                <p>$ {eachYear.pibPerCapita}</p>
+                <p>$ {eachYear.pibTotal.toLocaleString("en-US")}</p>
+                <p>$ {eachYear.pibPerCapita.toLocaleString("en-US")}</p>
                </div>
             ))}
           </div>

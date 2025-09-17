@@ -80,8 +80,6 @@ export default function PibEvolution() {
             .resultados[0].series[0].serie;
         const pibPerCapita = response.data.find((d: { id: string; }) => d.id === "9812")
             .resultados[0].series[0].serie;
-        console.log(pibTotal);
-        console.log(pibPerCapita);
 
         setData(
             Object.keys(pibTotal).map((year) => ({

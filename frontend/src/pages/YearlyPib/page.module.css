@@ -14,11 +14,12 @@
     font-size: 2rem;
   }
 
-  .backDiv{
+  .backDiv {
     position: absolute;
     left: 10px;
     top: 10px;
-    img{
+
+    img {
       width: 35px;
       cursor: pointer;
     }
@@ -56,15 +57,15 @@
       max-width: 30%;
     }
 
-    .wrapperTable{
+    .wrapperTable {
       width: 100%;
       display: flex;
       flex-direction: column;
-      max-height: 500px;
+      max-height: 600px;
       overflow: scroll;
       position: relative;
 
-      .wrapperTableHeader{
+      .wrapperTableHeader {
         position: sticky;
         top: 0;
         width: 100%;
@@ -76,7 +77,7 @@
         background-color: #1BB17A;
         color: #FFF;
 
-        p{
+        p {
           width: 100%;
           text-align: center;
           display: flex;
@@ -85,11 +86,11 @@
         }
       }
 
-      .wrapperTableData{
+      .wrapperTableData {
         display: flex;
         flex-direction: column;
 
-        .wrapperLineTableData{
+        .wrapperLineTableData {
           width: 100%;
           display: flex;
           justify-content: space-between;
@@ -99,13 +100,19 @@
           border: 1px solid #1BB17A;
           color: #FFF;
 
-          p{
-          width: 100%;
-          text-align: center;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          p {
+            width: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          transition: .5s;
         }
+
+        .wrapperLineTableData:hover {
+          background-color: #1BB17A;
         }
       }
     }
@@ -114,7 +121,7 @@
 
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1300px) {
   .wrapperMain .wrapperInterLogo {
     width: 90%;
     min-height: unset;
@@ -127,6 +134,10 @@
 
     .wrapperHeaderDiv {
       width: 100%;
+    }
+
+        .wrapperTable {
+      max-height: 300px;
     }
 
     .wrapperForm {
