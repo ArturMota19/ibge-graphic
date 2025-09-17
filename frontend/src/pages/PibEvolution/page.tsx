@@ -1,8 +1,10 @@
 // Components
-
+import Button from "../../components/basics/Button/Button";
+import Spinner from "../../components/basics/SpinnerLoading/SpinnerLoading";
 // Images
-import { useState } from "react";
+import backIcon from "../../assets/back_icon.svg"
 // Imports
+import { useState } from "react";
 import {
     LineChart,
     Line,
@@ -12,17 +14,18 @@ import {
     Legend,
     ResponsiveContainer,
 } from "recharts";
+import { BaseRequest } from "../../services/BaseRequest";
+import { toast } from "react-toastify";
 import { MultiSelect } from "primereact/multiselect";
 // Styles
 import s from "./page.module.css";
-import { BaseRequest } from "../../services/BaseRequest";
-import Button from "../../components/basics/Button/Button";
-import Spinner from "../../components/basics/SpinnerLoading/SpinnerLoading";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 export default function PibEvolution() {
+  const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false);
-    const exchangeRate = 5.40;
+    const exchangeRate = 5.4;
     const [data, setData] = useState<
         { name: string; pibTotal: number; pibPerCapita: number }[]
     >([]);
@@ -58,12 +61,15 @@ export default function PibEvolution() {
     ];
 
     async function FetchIBGE() {
-      if(selectedYears.length < 2){
-        toast.error("Selecione ao menos dois anos para realizar a análise.",{
-          toastId: "selected-years-error"
-        })
-        return
-      }
+        if (selectedYears.length < 2) {
+            toast.error(
+                "Selecione ao menos dois anos para realizar a análise.",
+                {
+                    toastId: "selected-years-error",
+                }
+            );
+            return;
+        }
         const yearsString = selectedYears.join("|");
         const response = await BaseRequest({
             method: "GET",
@@ -142,6 +148,9 @@ export default function PibEvolution() {
     return (
         <main className={s.wrapperMain}>
             <section className={s.wrapperInterLogo}>
+                <div className={s.backDiv} onClick={() => navigate(-1)}>
+                  <img src={backIcon} alt="voltar" />
+                </div>
                 <div className={s.wrapperHeaderDiv}>
                     <h1>Evolução do PIB</h1>
                     <form className={s.wrapperForm}>
@@ -166,7 +175,11 @@ export default function PibEvolution() {
                         />
                     </form>
                 </div>
-                {isLoading ? <Spinner size={50} color="#1BB17A" /> : <MyChart/>}
+                {isLoading ? (
+                    <Spinner size={50} color="#1BB17A" />
+                ) : (
+                    <MyChart />
+                )}
             </section>
         </main>
     );

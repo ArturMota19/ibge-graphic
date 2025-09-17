@@ -14,7 +14,18 @@
     font-size: 2rem;
   }
 
+  .backDiv{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    img{
+      width: 35px;
+      cursor: pointer;
+    }
+  }
+
   .wrapperInterLogo {
+    position: relative;
     width: 80%;
     min-height: 30%;
     padding: 2rem;
