@@ -10,6 +10,10 @@
   align-items: center;
   justify-content: center;
 
+  h1 {
+    font-size: 2rem;
+  }
+
   .wrapperInterLogo {
     width: 80%;
     min-height: 30%;
@@ -50,6 +54,11 @@
     width: 90%;
     min-height: unset;
     padding: 1rem;
+
+    h1 {
+      font-size: 1rem;
+    }
+
 
     .wrapperHeaderDiv {
       width: 100%;

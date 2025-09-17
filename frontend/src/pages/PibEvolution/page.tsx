@@ -18,6 +18,7 @@ import s from "./page.module.css";
 import { BaseRequest } from "../../services/BaseRequest";
 import Button from "../../components/basics/Button/Button";
 import Spinner from "../../components/basics/SpinnerLoading/SpinnerLoading";
+import { toast } from "react-toastify";
 
 export default function PibEvolution() {
     const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +58,12 @@ export default function PibEvolution() {
     ];
 
     async function FetchIBGE() {
+      if(selectedYears.length < 2){
+        toast.error("Selecione ao menos dois anos para realizar a análise.",{
+          toastId: "selected-years-error"
+        })
+        return
+      }
         const yearsString = selectedYears.join("|");
         const response = await BaseRequest({
             method: "GET",
