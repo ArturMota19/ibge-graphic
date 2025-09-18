@@ -50,7 +50,7 @@ export default function PibEvolution() {
     ];
 
     async function FetchIBGE() {
-        const yearsString = selectedYears.join("|");
+        const yearsString = selectedYears.sort((a, b) => a - b).join("|");
         const response = await BaseRequest({
             method: "GET",
             url: `https://servicodados.ibge.gov.br/api/v3/agregados/6784/periodos/${yearsString}/variaveis/9808|9812?localidades=N1[all]`,
