@@ -102,7 +102,7 @@ export default function PibEvolution() {
                     <h1>PIB Anual</h1>
                     <form className={s.wrapperForm}>
                         <label htmlFor="years">
-                            Selecione o(s) Ano(s) para análise
+                            Selecione os Anos para análise
                         </label>
                         <MultiSelect
                             value={selectedYears}

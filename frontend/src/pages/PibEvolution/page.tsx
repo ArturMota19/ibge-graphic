@@ -153,13 +153,14 @@ export default function PibEvolution() {
                     <h1>Evolução do PIB</h1>
                     <form className={s.wrapperForm}>
                         <label htmlFor="years">
-                            Selecione o(s) Ano(s) para análise
+                            Selecione os Anos para análise
                         </label>
                         <MultiSelect
                             value={selectedYears}
                             onChange={(e) => setSelectedYears(e.value)}
                             options={years}
                             name="years"
+                            id="years"
                             placeholder="Anos para consulta"
                             className={`customMultiSelect`}
                         />
